@@ -1,15 +1,18 @@
 from contacts_functions import (parse_input, add_contact, change_contact, show_phone,
-show_all, add_birthday_func, show_birthday, birthdays)
-from contacts_classes import AddressBook
+show_all, add_birthday_func, show_birthday, birthdays, save_data, load_data)
 
 def main():
-    book=AddressBook()
+    book = load_data()
     print("Welcome to the assistant bot!")
     while True:
-        user_input = input("Enter a command: ")
+        user_input = input("Enter a command: ").strip()
+        if not user_input:
+            print("Please enter a command.")
+            continue
         command, *args = parse_input(user_input)
 
         if command in ["close", "exit"]:
+            save_data(book)
             print("Good bye!")
             break
         elif command == "hello":
